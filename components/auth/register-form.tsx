@@ -42,7 +42,7 @@ const RegisterForm = () => {
         setError("")
         setSuccess("")
         setLoading(true);
-        const response = await fetch('/api/auth',{
+        const response = await fetch('/api/auth/add-user',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
