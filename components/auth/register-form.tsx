@@ -126,8 +126,8 @@ const RegisterForm = () => {
                                 )}
                             />
                         </div>
-                        {error && <FormError message={error}/>}
-                        {success &&  <FormSuccess message={success}/>}
+                        <FormError message={error}/>
+                        <FormSuccess message={success}/>
                         <Button type="submit" className="w-full">
                             {loading ? <span> <RotateCw className="w-5 h-5 animate-spin"/></span> : <span>Create An Account</span>}
                         </Button>
