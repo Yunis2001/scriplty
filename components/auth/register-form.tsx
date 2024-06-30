@@ -132,7 +132,7 @@ const RegisterForm = () => {
                         </div>
                         <FormError message={error}/>
                         <FormSuccess message={success}/>
-                        <Button type="submit" className="w-full">
+                        <Button type="submit" disabled={loading} className='w-full disabled:bg-gray-500'>
                             {loading ? <span> <RotateCw className="w-5 h-5 animate-spin"/></span> : <span>Create An Account</span>}
                         </Button>
                     </form>
