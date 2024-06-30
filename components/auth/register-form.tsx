@@ -49,7 +49,7 @@ const RegisterForm = () => {
             },
             body: JSON.stringify({
                 name:values.name,
-                email:values.email,
+                email:values.email.toLowerCase(),
                 password:values.password,
             })
         })
