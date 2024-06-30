@@ -42,26 +42,30 @@ const RegisterForm = () => {
         setError("")
         setSuccess("")
         setLoading(true);
-        const response = await fetch('/api/auth/add-user',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name:values.name,
-                email:values.email.toLowerCase(),
-                password:values.password,
-            })
-        })
-        
-        if(!response.ok){
-            setError("Invalid Fields")
-        }
-        else {
-            setSuccess("Account Successfully Created")
-            setTimeout(()=>router.push('/auth/login'),2000);
-        }
 
+        try {
+            const response = await fetch('/api/auth/add-user',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name:values.name,
+                    email:values.email.toLowerCase(),
+                    password:values.password,
+                })
+            })
+            if(!response.ok){
+                setError("Invalid Fields")
+                setLoading(false);
+            }
+            else {
+                setSuccess("Account Successfully Created")
+                setTimeout(()=>router.push('/auth/login'),2000);
+            }
+        } catch (error) {
+            setLoading(false);
+        }
     };
 
     return (
