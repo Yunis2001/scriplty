@@ -55,15 +55,21 @@ const RegisterForm = () => {
                     password:values.password,
                 })
             })
+
+            const data = await response.json();
+            
             if(!response.ok){
-                setError("Invalid Fields")
+                setError(data.message)
                 setLoading(false);
             }
             else {
-                setSuccess("Account Successfully Created")
+                setSuccess(data.message)
                 setTimeout(()=>router.push('/auth/login'),2000);
             }
         } catch (error) {
+            setError('Something went wrong');
+        }
+        finally {
             setLoading(false);
         }
     };
