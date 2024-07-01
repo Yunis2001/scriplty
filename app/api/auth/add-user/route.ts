@@ -30,7 +30,7 @@ export async function POST(req:Request){
         })
 
         if (isExistingUserByEmail) {
-            return NextResponse.json({user:null, message: "A user with this email already exists.",status:409})
+            return NextResponse.json({user:null, message: "Email already in use. Try logging in instead"},{status:409})
         }
 
         const hashedPassword = await hash(password,10);
@@ -45,7 +45,7 @@ export async function POST(req:Request){
 
         const { password: newUserPassword, ...rest } = newUser;
 
-       return NextResponse.json({user:rest, message: "User created successfully", status:201}); 
+       return NextResponse.json({user:rest, message: "User created successfully"},{ status:201}); 
 
     } catch (error) {
         if(error instanceof z.ZodError){
