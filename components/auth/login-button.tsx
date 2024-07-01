@@ -11,7 +11,7 @@ interface LoginButtonProps {
 const LoginButton = ({children,mode='redirect',asChild}:LoginButtonProps) => {
     const router = useRouter();
     const onClick = () => {
-        router.push('auth/register')
+        router.push('register')
     }
 
     if (mode == "modal") {
