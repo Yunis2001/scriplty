@@ -64,7 +64,7 @@ const RegisterForm = () => {
             }
             else {
                 setSuccess(data.message)
-                setTimeout(()=>router.push('/auth/login'),2000);
+                setTimeout(()=>router.push('/login'),2000);
             }
         } catch (error) {
             setError('Something went wrong');
