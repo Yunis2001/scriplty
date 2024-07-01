@@ -48,6 +48,10 @@ export async function POST(req:Request){
        return NextResponse.json({user:rest, message: "User created successfully", status:201}); 
 
     } catch (error) {
+        if(error instanceof z.ZodError){
+            const errorMessages = error.errors.map((err) => err.message);
+            return NextResponse.json({ message: errorMessages},{status: 400});
+        }
         console.log(error);
         return NextResponse.json({message: "Something went wrong!", status:500})
     }
