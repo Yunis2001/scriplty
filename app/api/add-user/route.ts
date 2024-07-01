@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import {hash} from 'bcrypt'
 
 import { RegisterFormSchema } from "@/schemas";
+import { ZodError } from "zod";
 
 export async function POST(req:Request){
     try {
@@ -37,6 +38,10 @@ export async function POST(req:Request){
        return NextResponse.json({user:rest, message: "User created successfully"},{ status:201}); 
 
     } catch (error) {
+        if(error instanceof ZodError){
+            const errorMessages = error.errors.map((err) => err.message);
+            return NextResponse.json({ message: errorMessages},{status: 400});
+        }
         console.log(error);
         return NextResponse.json({message: "Something went wrong!"},{status:500})
     }
