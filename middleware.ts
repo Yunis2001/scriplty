@@ -15,7 +15,10 @@ export default auth((req) => {
     const isLoggedIn = !!req.auth;
 
     // Single out the authentication api routes from requiring authorization.
-    const isApiAuthRoute = apiAuthPrefixs.includes(nextUrl.pathname);
+    const isApiRoute = apiAuthPrefixs.includes(nextUrl.pathname);
+
+    const isApiAuthRoute = nextUrl.pathname.startsWith('/api/auth');
+
 
     // Single out the public routes from requiring authorization
     const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
@@ -31,6 +34,9 @@ export default auth((req) => {
         return;
     }
 
+    if(isApiRoute){
+        return;
+    }
 
     /**
      * This conditional statement redirects the user to the dashboard.
