@@ -22,7 +22,7 @@ export const authRoutes = [
  * These routes are used for API authentication purposes and are to be public.
  * @type {string[]}
  */
-export const apiAuthPrefixs = ["/api/auth","/api/add-user"]
+export const apiAuthPrefixs = ["/api/auth/providers","/api/add-user"]
 
 
 /**
