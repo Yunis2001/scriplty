@@ -5,7 +5,7 @@ import {
     DEFAULT_LOGIN_REDIRECT_URL,
     publicRoutes,
     authRoutes,
-    apiAuthPrefix,
+    apiAuthPrefixs,
 } from "@/routes"
 
 const { auth } = NextAuth(authConfig);
@@ -15,7 +15,7 @@ export default auth((req) => {
     const isLoggedIn = !!req.auth;
 
     // Single out the authentication api routes from requiring authorization.
-    const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
+    const isApiAuthRoute = apiAuthPrefixs.includes(nextUrl.pathname);
 
     // Single out the public routes from requiring authorization
     const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
