@@ -4,10 +4,15 @@ import bycrypt from "bcryptjs";
 
 import { db } from "./lib/prisma";
 import { LoginFormSchema } from '@/schemas';
+import google from "next-auth/providers/google";
 
 
 export default {
     providers: [
+        google({
+            clientId:process.env.GOOGLE_CLIENT_ID,
+            clientSecret:process.env.GOOGLE_CLIENT_SECRET,
+        }),
         Credentials({
             async authorize(credentials) {
                 const validatedFields = LoginFormSchema.safeParse(credentials);
