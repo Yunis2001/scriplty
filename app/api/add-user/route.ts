@@ -2,8 +2,20 @@ import { db } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import {hash} from 'bcrypt'
 
-import { RegisterFormSchema } from "@/schemas";
-import { ZodError } from "zod";
+import * as z from "zod";
+
+
+export const RegisterFormSchema = z.object({
+    email:z.string().email({
+        message:'Please enter a valid email address'
+    }),
+    password:z.string().min(6,{
+        message:'Please enter a valid password'
+    }),
+    name:z.string().min(1,{
+        message:"Name is required!"
+    })
+})
 
 export async function POST(req:Request){
     try {
@@ -38,8 +50,9 @@ export async function POST(req:Request){
        return NextResponse.json({user:rest, message: "User created successfully"},{ status:201}); 
 
     } catch (error) {
-        if(error instanceof ZodError){
+        if(error instanceof z.ZodError){
             const errorMessages = error.errors.map((err) => err.message);
+            console.log(errorMessages);
             return NextResponse.json({ message: errorMessages},{status: 400});
         }
         console.log(error);
