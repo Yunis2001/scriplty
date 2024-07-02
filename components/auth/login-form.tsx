@@ -5,22 +5,19 @@ import { useForm } from "react-hook-form"
 import * as z from 'zod'
 import { LoginFormSchema } from "@/schemas"
 
-import {
-    Form,
-    FormControl,
-    FormLabel,
-    FormItem,
-    FormMessage,
-    FormField,
-} from "@/components/ui/form"
+import { Form,FormControl,FormLabel,FormItem,FormMessage,FormField} from "@/components/ui/form"
 import CardWrapper from "@/components/auth/card-wrapper";
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import FormError from "@/components/form-error"
-import FormSuccess from "@/components/form-success"
-import BackButton from "./back-button"
+import { useState, useTransition } from "react"
+import { RotateCw } from "lucide-react"
+import { login } from "@/app/actions/Login"
 
 const LoginForm = () => {
+    const [error, setError] = useState<string | undefined>("");
+    const [isPending, startTransition] = useTransition();
+
     const form = useForm<z.infer<typeof LoginFormSchema>>({
         resolver:zodResolver(LoginFormSchema),
         defaultValues: {
@@ -29,8 +26,16 @@ const LoginForm = () => {
         }
     });
 
-    const onSubmit = (values:z.infer<typeof LoginFormSchema>) => {
-        console.log(values);
+    const onSubmit = async (values:z.infer<typeof LoginFormSchema>) => {
+        setError("");
+
+        startTransition(()=> {
+            login(values).then((data)=> {
+                if(data?.error){
+                    setError(data?.error);
+                }
+            });
+        })
     };
 
     return (
@@ -47,6 +52,7 @@ const LoginForm = () => {
                             <FormField 
                                 control={form.control}
                                 name="email"
+                                disabled={isPending}
                                 render={({field}) => (
                                     <FormItem>
                                         <FormLabel>Email</FormLabel>
@@ -60,10 +66,11 @@ const LoginForm = () => {
                                     </FormItem>
                                 )}
                             />
-
+                            
                             <FormField 
                                 control={form.control}
                                 name="password"
+                                disabled={isPending}
                                 render={({field}) => (
                                     <FormItem>
                                         <FormLabel>Password</FormLabel>
@@ -78,10 +85,9 @@ const LoginForm = () => {
                                 )}
                             />
                         </div>
-                        <FormError message=""/>
-                        <FormSuccess message=""/>
-                        <Button type="submit" className="w-full">
-                            Login
+                        <FormError message={error}/>
+                        <Button type="submit" disabled={isPending} className="w-full">
+                            {isPending ? <span><RotateCw className="w-5 h-5 animate-spin"/></span> : <span>Login</span>}
                         </Button>
                     </form>
                 </Form>
