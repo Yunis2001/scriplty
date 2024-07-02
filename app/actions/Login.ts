@@ -5,7 +5,6 @@ import { DEFAULT_LOGIN_REDIRECT_URL } from "@/routes";
 import { AuthError } from "next-auth";
 import { LoginFormSchema } from '@/schemas';
 import { signIn } from '@/auth';
-import { db } from '@/lib/prisma';
 
 export const login = async(values: z.infer<typeof LoginFormSchema>) => {
     const validatedFields = LoginFormSchema.safeParse(values);
