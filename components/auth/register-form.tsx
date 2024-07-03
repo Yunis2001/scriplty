@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from 'zod'
 import { useRouter } from "next/navigation"
-import { RotateCw } from "lucide-react"
+import { Eye, EyeOff, RotateCw } from "lucide-react"
 
 import { RegisterFormSchema } from "@/schemas"
 
@@ -27,6 +27,7 @@ const RegisterForm = () => {
     const [success, setSuccess] = useState("");
     const [error,setError] = useState("");
     const [loading,setLoading] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
     const router = useRouter();
     const form = useForm<z.infer<typeof RegisterFormSchema>>({
@@ -42,6 +43,7 @@ const RegisterForm = () => {
         setError("")
         setSuccess("")
         setLoading(true);
+        setIsVisible(false)
 
         try {
             const response = await fetch('/api/add-user',{
@@ -126,10 +128,16 @@ const RegisterForm = () => {
                                     <FormItem>
                                         <FormLabel>Password</FormLabel>
                                         <FormControl>
-                                            <Input 
-                                                {...field}
-                                                placeholder="*********" type="password"
-                                            />
+                                            <div className="relative">
+                                                <Input 
+                                                    {...field}
+                                                    placeholder="*********" 
+                                                    type={isVisible ? "text" : "password"}
+                                                />
+                                                <div className="absolute top-1/4 right-4">
+                                                    {!isVisible? <Eye onClick={()=> setIsVisible(true)} className="w-5 h-5 cursor-pointer" /> : <EyeOff onClick={()=> setIsVisible(false)} className="w-5 h-5 cursor-pointer"/>}
+                                                </div>
+                                            </div>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -143,10 +151,16 @@ const RegisterForm = () => {
                                     <FormItem>
                                         <FormLabel>Confirm Password</FormLabel>
                                         <FormControl>
-                                            <Input 
-                                                {...field}
-                                                placeholder="*********" type="password"
-                                            />
+                                            <div className="relative">
+                                                <Input 
+                                                    {...field}
+                                                    placeholder="*********" 
+                                                    type={isVisible ? "text" : "password"}
+                                                />
+                                                <div className="absolute top-1/4 right-4">
+                                                    {!isVisible? <Eye onClick={()=> setIsVisible(true)} className="w-5 h-5 cursor-pointer" /> : <EyeOff onClick={()=> setIsVisible(false)} className="w-5 h-5 cursor-pointer"/>}
+                                                </div>
+                                            </div>                                           
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
