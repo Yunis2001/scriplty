@@ -11,11 +11,12 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import FormError from "@/components/form-error"
 import { useState, useTransition } from "react"
-import { RotateCw } from "lucide-react"
+import { Eye, EyeOff, RotateCw } from "lucide-react"
 import { login } from "@/app/actions/Login"
 
 const LoginForm = () => {
     const [error, setError] = useState<string | undefined>("");
+    const [isVisible,setIsVisible] = useState(false);
     const [isPending, startTransition] = useTransition();
 
     const form = useForm<z.infer<typeof LoginFormSchema>>({
@@ -75,10 +76,15 @@ const LoginForm = () => {
                                     <FormItem>
                                         <FormLabel>Password</FormLabel>
                                         <FormControl>
-                                            <Input 
-                                                {...field}
-                                                placeholder="*********" type="password"
-                                            />
+                                            <div className="relative">
+                                                <Input 
+                                                    {...field}
+                                                    placeholder="*********" type="password"
+                                                />
+                                                <div className="absolute top-1/4 right-4">
+                                                    {!isVisible? <Eye onClick={()=> setIsVisible(true)} className="w-5 h-5 cursor-pointer" /> : <EyeOff onClick={()=> setIsVisible(false)} className="w-5 h-5 cursor-pointer"/>}
+                                                </div>
+                                            </div>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
