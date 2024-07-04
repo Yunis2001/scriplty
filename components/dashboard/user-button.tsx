@@ -28,7 +28,7 @@ const UserButton = () => {
                     </AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-[#313132] opacity-90 text-white">
+            <DropdownMenuContent className="bg-[#313132] opacity-90 text-white z-50">
                 <DropdownMenuItem onClick={onClick} className="flex p-3 m-1 shadow-xl items-center gap-2 cursor-pointer">
                     <LogOut className="h-4 w-4" />
                     Sign Out
