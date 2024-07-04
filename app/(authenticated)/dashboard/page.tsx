@@ -1,20 +1,23 @@
-import { auth, signOut } from "@/auth";
+'use client'
 
-const DashBoard = async() => {
-    const session = await auth();
+import { logOut } from "@/app/actions/Logout";
+import DocumentsGrid from "@/components/dashboard/document-grid";
+import { useCurrentUser } from "@/hooks/use-current-user";
+
+const DashBoard = () => {
+    const user = useCurrentUser();
+    const onClick = ()=> {
+        logOut();
+    }
+
     return ( 
         <div>
-            {JSON.stringify(session)}
-            <form action={async() => {
-                "use server"
-
-                await signOut({
-                    redirectTo:'/login',
-                });
-            }}>
-                <button type="submit">Sign Out</button>
-                <p><span>Welcome back</span> {session?.user?.name}</p>
-            </form>
+            <div className="mt-5">
+                <h1 className='text-xl font-bold'>
+                    Welcome Back {user?.name}
+                </h1>
+            </div>
+            <DocumentsGrid />
         </div>
      );
 }
