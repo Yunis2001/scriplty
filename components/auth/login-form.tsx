@@ -29,6 +29,7 @@ const LoginForm = () => {
 
     const onSubmit = async (values:z.infer<typeof LoginFormSchema>) => {
         setError("");
+        setIsVisible(false);
 
         startTransition(()=> {
             login(values).then((data)=> {
@@ -79,7 +80,7 @@ const LoginForm = () => {
                                             <div className="relative">
                                                 <Input 
                                                     {...field}
-                                                    placeholder="*********" type="password"
+                                                    placeholder="*********" type={isVisible? 'text': 'password'}
                                                 />
                                                 <div className="absolute top-1/4 right-4">
                                                     {!isVisible? <Eye onClick={()=> setIsVisible(true)} className="w-5 h-5 cursor-pointer" /> : <EyeOff onClick={()=> setIsVisible(false)} className="w-5 h-5 cursor-pointer"/>}
