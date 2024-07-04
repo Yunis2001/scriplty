@@ -33,7 +33,7 @@ const MobileNav = () => {
                         </SheetClose>
                     </div>
 
-                    <div>
+                    <div className="flex justify-start">
                         <SheetFooter>
                             <SheetClose asChild>
                                 <Button onClick={onClick} className="flex items-center justify-start gap-3" variant="link">
