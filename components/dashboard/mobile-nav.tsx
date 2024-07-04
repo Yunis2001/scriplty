@@ -14,9 +14,7 @@ const MobileNav = () => {
     return ( 
         <Sheet>
             <SheetTrigger asChild>
-                <Button variant="link">
-                    <Menu className="w-10 h-10 stroke-1" />
-                </Button>
+                <Menu className="w-10 h-10 stroke-1" />
             </SheetTrigger>
             <SheetContent className='pt-32' side="left">
                 <div className="flex flex-col justify-between h-full">
