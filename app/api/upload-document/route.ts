@@ -1,8 +1,6 @@
-import { useCurrentUser } from "@/hooks/use-current-user";
 import { NextResponse } from "next/server";
 import mammoth from 'mammoth';
 import { db } from "@/lib/prisma";
-import { getSession, useSession } from "next-auth/react";
 import { auth } from "@/auth";
 
 export async function POST(req:Request){
