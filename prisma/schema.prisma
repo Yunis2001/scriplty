@@ -24,6 +24,7 @@ model User {
   emailVerified DateTime?
 
   accounts Account[]
+  originalDocument OriginalDocument[]
 }
 
 
@@ -46,4 +47,15 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
  
   @@id([provider, providerAccountId])
+}
+
+model OriginalDocument {
+  document_id        Int      @id @default(autoincrement())
+  user_id            Int
+  title              String
+  content            String
+  upload_date        DateTime @default(now())
+  last_modified      DateTime @default(now())
+
+  user User @relation(fields: [user_id], references: [id])
 }
