@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { Home, LogOut, Menu, Trash} from "lucide-react";
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetTrigger } from "../ui/sheet";
 import { logOut } from "@/app/actions/Logout";
+import Link from "next/link";
 
 
 const MobileNav = () => {
@@ -20,14 +21,14 @@ const MobileNav = () => {
                 <div className="flex flex-col justify-between h-full">
                     <div className="flex flex-col items-start gap-10 w-full">
                         <SheetClose asChild>
-                            <Button className="flex items-center gap-3" variant="link">
+                            <Link className="flex items-center gap-3" href="/dashboard">
                                 <Home className="w-7 h-7"/> <span className="text-lg">Home</span>
-                            </Button>
+                            </Link>
                         </SheetClose>
                         <SheetClose asChild>
-                            <Button className="flex items-center gap-3" variant="link">
+                            <Link className="flex items-center gap-3" href="/trash">
                                 <Trash className="w-7 h-7"/> <span className="text-lg">Trash</span>
-                            </Button>
+                            </Link>
                         </SheetClose>
                     </div>
 
