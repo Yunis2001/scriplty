@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import Header from "@/components/auth/header";
 import DashboardHeader from "@/components/dashboard/dashboard-header";
 import Sidebar from "@/components/dashboard/sidebar";
+import { Toaster } from "@/components/ui/sonner";
 import { SessionProvider } from "next-auth/react"
 
 interface LayoutProps {
@@ -17,6 +18,7 @@ const DashboardLayout = async({children}:LayoutProps) => {
                 <div className="w-full ml-5 overflow-scroll">
                     <DashboardHeader />
                     {children}
+                    <Toaster richColors />
                 </div>
             </div>
         </SessionProvider>
