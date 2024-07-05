@@ -11,7 +11,7 @@ export async function POST(req:Request){
     const file = formData.get("original-document") as File | null;
 
     if(!session?.user?.email) {
-        return NextResponse.json({error: "Unauthorized",status:401})
+        return NextResponse.json({message: "Unauthorized",status:401})
     }
 
     const user = await db.user.findUnique({
@@ -21,12 +21,12 @@ export async function POST(req:Request){
     })
 
     if (!user) {
-        return NextResponse.json({ error: "User not found" }, { status: 404 });
+        return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
     try {
         if (!file) {
-            return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
+            return NextResponse.json({ message: "No file uploaded" }, { status: 400 });
         }
 
         const fileBuffer = await file.arrayBuffer();
@@ -43,9 +43,9 @@ export async function POST(req:Request){
             }
         })
 
-        return NextResponse.json({ success: true, documentId: uploadedDocument.document_id }, { status: 200 });
+        return NextResponse.json({ message: "File Uploaded Succesfully", documentId: uploadedDocument.document_id }, { status: 200 });
     } catch (error) {
         console.error('Error processing document:', error);
-        return NextResponse.json({ error: "Error processing document" }, { status: 500 });
+        return NextResponse.json({ message: "Error processing document" }, { status: 500 });
     }
 }
