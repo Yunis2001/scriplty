@@ -4,10 +4,13 @@ import { useRef, useState } from "react"
 import { Input } from "./ui/input"
 import { toast } from "sonner";
 
-const UploadFile = () => {
+interface UploadFileProps {
+    onUploadSuccess: () => void;
+}
+
+const UploadFile = ({onUploadSuccess}:UploadFileProps) => {
     const [file, setFile] = useState<File | null>(null);
     const [error,setError] = useState('');
-    const [success,setSuccess] = useState('');
     const [isUploading, setIsUploading] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
     const handleFileChange = (e:any)=> {
@@ -22,7 +25,6 @@ const UploadFile = () => {
             return;
         };
         setError('');
-        setSuccess('');
         setIsUploading(true);
 
         const uploadedFile = new FormData();
@@ -37,8 +39,8 @@ const UploadFile = () => {
 
 
             if(response.ok){
-                setSuccess(data.message);
-                toast.success(success);
+                toast.success("File uploaded successfully");
+                onUploadSuccess();
             }
             else {
                 setError(data.message);

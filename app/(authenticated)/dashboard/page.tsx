@@ -1,23 +1,81 @@
 'use client'
 
-import { logOut } from "@/app/actions/Logout";
-import DocumentsGrid from "@/components/dashboard/document-grid";
-import { useCurrentUser } from "@/hooks/use-current-user";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import UploadFile from "@/components/upload-file";
+import { Trash } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const DashBoard = () => {
-    const user = useCurrentUser();
-    const onClick = ()=> {
-        logOut();
+    const [documents, setDocuments] = useState<Array<{ id: string; title: string,content:string}>>([]);
+    const [isLoading, setLoading] = useState(true);
+
+    const getDocuments = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch("/api/get-documents");
+
+            const data = await response.json();
+    
+            if(response.ok){
+                console.log("Documents retrieved successfully")
+                setDocuments(data.documents);
+            }
+        } catch (error) {
+            console.log(error)
+        }
+        finally {
+            setLoading(false);
+        }
+    }
+
+    useEffect(()=>{
+        getDocuments();
+    },[]);
+
+    const onUploadSuccess = ()=> {
+        getDocuments();
     }
 
     return ( 
-        <div>
-            <div className="mt-5">
-                <h1 className='text-xl font-bold'>
-                    Welcome Back {user?.name}
-                </h1>
-            </div>
-            <DocumentsGrid showUploadComponent />
+        <div className="w-full my-10 pb-5 grid justify-items-center sm:justify-items-start grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-3 gap-y-9">
+            < UploadFile onUploadSuccess={onUploadSuccess} />
+            {isLoading ? (
+                // Show skeletons while loading
+                <>
+                    {Array.from({ length: 5 }).map((_, idx) => (
+                        <Skeleton key={idx} className="w-[300px] sm:w-[200px] flex flex-col shadow-xl rounded-md border-2 outline-none py-5 px-3">
+                            <Skeleton className="w-full h-[150px]" />
+                            <Skeleton className="w-full " />
+                        </Skeleton>
+                    ))}
+                </>
+            ) : (
+                // Show documents once loaded
+                documents ? (
+                    documents.map((doc, id) => (
+                        <article key={doc.id} className="w-[300px] sm:w-[200px] bg-white flex flex-col shadow-xl rounded-md border-2 outline-none py-5 px-3">
+                            <Link href={`/docs/${doc.id}`}>
+                                <header className="w-full">
+                                    <h1 className="font-bold uppercase mb-3 text-sm">{doc.title.substring(0, doc.title.lastIndexOf('.'))}</h1>
+                                    <p className="text-sm sm:text-xs overflow-hidden h-[150px]">
+                                        {doc.content.length > 600 ? doc.content.substring(0, 250) : doc.content.substring(0, 100)}
+                                    </p>
+                                </header>
+                            </Link>
+                            <footer className="w-full flex justify-center shadow-2xl py-1 rounded-md border-2 outline-none mt-5">
+                                <Button variant='link' onClick={() => { }}>
+                                    <Trash />
+                                </Button>
+                            </footer>
+                        </article>
+                    ))   
+                ):
+                (
+                    <div></div>
+                )
+            )}
         </div>
      );
 }
