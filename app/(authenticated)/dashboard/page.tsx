@@ -6,6 +6,7 @@ import UploadFile from "@/components/upload-file";
 import { Trash } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const DashBoard = () => {
     const [documents, setDocuments] = useState<Array<{ document_id: number; title: string,content:string}>>([]);
@@ -27,6 +28,19 @@ const DashBoard = () => {
         }
         finally {
             setLoading(false);
+        }
+    }
+
+    const deleteDocument = async (documentId:string) => {
+        const response = await fetch("/api/delete-documents",{
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: documentId,
+        });
+        if(response.ok){
+            toast.success("Document deleted successfully")
         }
     }
 
