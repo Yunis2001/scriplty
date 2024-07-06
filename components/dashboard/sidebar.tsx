@@ -15,10 +15,6 @@ function Sidebar() {
             <Link className="flex gap-2 items-center text-white" href="/dashboard">
                 <Home className="w-7 h-7 stroke-[1px]" /> <span className="text-xl">Home</span>
             </Link>
-
-            <Link className="flex gap-2 items-center text-white mt-5" href="/trash">
-                <Trash className="w-7 h-7 stroke-[1px]" /> <span className="text-xl">Trash</span>
-            </Link>
         </div>
 
         <div>

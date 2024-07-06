@@ -25,11 +25,6 @@ const MobileNav = () => {
                                 <Home className="w-7 h-7"/> <span className="text-lg">Home</span>
                             </Link>
                         </SheetClose>
-                        <SheetClose asChild>
-                            <Link className="flex items-center gap-3" href="/trash">
-                                <Trash className="w-7 h-7"/> <span className="text-lg">Trash</span>
-                            </Link>
-                        </SheetClose>
                     </div>
 
                     <div className="flex justify-start">
