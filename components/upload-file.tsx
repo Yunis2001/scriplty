@@ -39,7 +39,7 @@ const UploadFile = ({onUploadSuccess}:UploadFileProps) => {
 
 
             if(response.ok){
-                toast.success("File uploaded successfully");
+                toast.success("Document uploaded successfully");
                 onUploadSuccess();
             }
             else {
