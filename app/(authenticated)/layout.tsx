@@ -1,5 +1,4 @@
 import { auth } from "@/auth";
-import Header from "@/components/auth/header";
 import DashboardHeader from "@/components/dashboard/dashboard-header";
 import Sidebar from "@/components/dashboard/sidebar";
 import { Toaster } from "@/components/ui/sonner";
