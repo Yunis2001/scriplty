@@ -55,8 +55,8 @@ const DashBoard = () => {
                 // Show documents once loaded
                 documents ? (
                     documents.map((doc, id) => (
-                        <article key={doc.id} className="w-[300px] sm:w-[200px] bg-white flex flex-col shadow-xl rounded-md border-2 outline-none py-5 px-3">
-                            <Link href={`/docs/${doc.id}`}>
+                        <article key={id} className="w-[300px] sm:w-[200px] bg-white flex flex-col shadow-xl rounded-md border-2 outline-none py-5 px-3">
+                            <Link href={`/docs/${doc.document_id}`}>
                                 <header className="w-full">
                                     <h1 className="font-bold uppercase mb-3 text-sm">{doc.title.substring(0, doc.title.lastIndexOf('.'))}</h1>
                                     <p className="text-sm sm:text-xs overflow-hidden h-[150px]">
