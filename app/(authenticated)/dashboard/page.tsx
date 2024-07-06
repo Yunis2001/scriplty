@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const DashBoard = () => {
-    const [documents, setDocuments] = useState<Array<{ id: string; title: string,content:string}>>([]);
+    const [documents, setDocuments] = useState<Array<{ document_id: number; title: string,content:string}>>([]);
     const [isLoading, setLoading] = useState(true);
 
     const getDocuments = async () => {
@@ -52,7 +52,6 @@ const DashBoard = () => {
                     ))}
                 </>
             ) : (
-                // Show documents once loaded
                 documents ? (
                     documents.map((doc, id) => (
                         <article key={id} className="w-[300px] sm:w-[200px] bg-white flex flex-col shadow-xl rounded-md border-2 outline-none py-5 px-3">
