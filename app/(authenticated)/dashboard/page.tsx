@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import UploadFile from "@/components/upload-file";
-import { Trash } from "lucide-react";
+import { Download, Trash } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -77,9 +77,16 @@ const DashBoard = () => {
                                     </p>
                                 </header>
                             </Link>
-                            <footer className="w-full flex justify-center shadow-2xl py-1 rounded-md border-2 outline-none mt-5">
-                                <Button variant='link' onClick={() => { }}>
-                                    <Trash />
+                            <footer className="w-full flex justify-center shadow-2xl py-2 rounded-md border-2 outline-none mt-5 gap-2">
+                                <Button variant='outline' onClick={()=> {
+                                    deleteDocument(`${doc.document_id}`)
+                                    setTimeout(getDocuments,1000)
+                                    }}>
+                                    <Trash className="w-4 h-4" />
+                                </Button>
+
+                                <Button variant='outline'>
+                                    <Download className="w-4 h-4" />
                                 </Button>
                             </footer>
                         </article>
