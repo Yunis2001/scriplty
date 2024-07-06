@@ -17,7 +17,7 @@ const DashBoard = () => {
                     Welcome Back {user?.name}
                 </h1>
             </div>
-            <DocumentsGrid />
+            <DocumentsGrid showUploadComponent />
         </div>
      );
 }
