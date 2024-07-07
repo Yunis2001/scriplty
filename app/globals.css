@@ -79,4 +79,36 @@
     body {
       @apply bg-background text-foreground;
     }
+
+    .word-document-content p{
+      margin-bottom: 1.6em;
+      line-height: 1.6;
+    }
+
+    .word-document-content li{
+      margin-bottom: 0.6em;
+    }
+
+    .word-document-content h1,
+    .word-document-content h2,
+    .word-document-content h3,
+    .word-document-content h4,
+    .word-document-content h5,
+    .word-document-content h6 {
+      margin-top: 1.6em;
+      margin-bottom: 0.5em; 
+    }
+
+    @media only screen and (min-width:600px) {
+      .word-document-content h1,
+      .word-document-content h2,
+      .word-document-content h3,
+      .word-document-content h4,
+      .word-document-content h5,
+      .word-document-content h6 ,
+      .word-document-content p,
+      .word-document-content li{
+        width: 500px;
+      }
+    }
   }
