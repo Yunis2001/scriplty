@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const DashBoard = () => {
-    const [documents, setDocuments] = useState<Array<{ document_id: number; title: string,content:string}>>([]);
+    const [documents, setDocuments] = useState<Array<{ document_id: number; title: string,content:string,rawText:string}>>([]);
     const [isLoading, setLoading] = useState(true);
 
     const getDocuments = async () => {
@@ -73,7 +73,7 @@ const DashBoard = () => {
                                 <header className="w-full">
                                     <h1 className="font-bold uppercase mb-3 text-sm">{doc.title.substring(0, doc.title.lastIndexOf('.'))}</h1>
                                     <p className="text-sm sm:text-xs overflow-hidden h-[150px]">
-                                        {doc.content.length > 600 ? doc.content.substring(0, 250) : doc.content.substring(0, 100)}
+                                        {doc.rawText.length > 600 ? doc.rawText.substring(0, 250) : doc.rawText.substring(0, 100)}
                                     </p>
                                 </header>
                             </Link>
