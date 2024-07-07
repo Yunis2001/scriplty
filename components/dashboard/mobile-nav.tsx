@@ -1,17 +1,12 @@
 'use client'
 
-import { Button } from "../ui/button";
-import { Home, LogOut, Menu, Trash} from "lucide-react";
-import { Sheet, SheetClose, SheetContent, SheetFooter, SheetTrigger } from "../ui/sheet";
-import { logOut } from "@/app/actions/Logout";
+import { Home,Menu} from "lucide-react";
+import { Sheet, SheetClose, SheetContent,SheetTrigger } from "../ui/sheet";
 import Link from "next/link";
+import LogoutButton from "../logout-button";
 
 
 const MobileNav = () => {
-    const onClick = ()=> {
-        logOut();
-    }
-
     return ( 
         <Sheet>
             <SheetTrigger asChild>
@@ -22,20 +17,13 @@ const MobileNav = () => {
                     <div className="flex flex-col items-start gap-10 w-full">
                         <SheetClose asChild>
                             <Link className="flex items-center gap-3" href="/dashboard">
-                                <Home className="w-7 h-7"/> <span className="text-lg">Home</span>
+                                <Home className="w-7 h-7"/> <span className="text-2xl">Home</span>
                             </Link>
                         </SheetClose>
                     </div>
-
-                    <div className="flex justify-start">
-                        <SheetFooter>
-                            <SheetClose asChild>
-                                <Button onClick={onClick} className="flex items-center justify-start gap-3" variant="link">
-                                    <LogOut className="w-7 h-7"/> <span className="text-lg">Sign Out</span>
-                                </Button>
-                            </SheetClose>
-                        </SheetFooter>
-                    </div>
+                    <SheetClose asChild>
+                        <LogoutButton />
+                    </SheetClose>
                 </div>
             </SheetContent>
         </Sheet>

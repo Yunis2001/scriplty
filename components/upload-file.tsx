@@ -3,12 +3,14 @@ import { FolderUp, RotateCw, Upload } from "lucide-react"
 import { useRef, useState } from "react"
 import { Input } from "./ui/input"
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface UploadFileProps {
     onUploadSuccess: () => void;
 }
 
 const UploadFile = ({onUploadSuccess}:UploadFileProps) => {
+    const router = useRouter()
     const [file, setFile] = useState<File | null>(null);
     const [error,setError] = useState('');
     const [isUploading, setIsUploading] = useState(false);
@@ -36,10 +38,9 @@ const UploadFile = ({onUploadSuccess}:UploadFileProps) => {
             });
 
             const data = await response.json();
-
-
             if(response.ok){
                 toast.success("Document uploaded successfully");
+                router.push(`/docs/${data.documentId}`);
                 onUploadSuccess();
             }
             else {
