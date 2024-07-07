@@ -54,6 +54,7 @@ model OriginalDocument {
   user_id            Int
   title              String
   content            String
+  rawText            String
   upload_date        DateTime @default(now())
   last_modified      DateTime @default(now())
 
