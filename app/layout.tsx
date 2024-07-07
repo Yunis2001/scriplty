@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter,Roboto } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
-const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({weight:["300","400","700","900"],subsets: ["latin"]});
 
 export const metadata: Metadata = {
@@ -18,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={roboto.className}>{children}</body>
+      <Toaster richColors />
     </html>
   );
 }
