@@ -1,6 +1,7 @@
 'use client'
 import DocumentSidebar from "@/components/document/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { processText } from "@/lib/process-text";
 import { Download } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -43,9 +44,22 @@ const DocumentView = () => {
         
     }
 
+    const getProcessedText = ()=> {
+        if(!document?.rawText){
+            console.log("No document");
+        }
+        else {
+            processText(document?.rawText)
+        }
+    }
+
     useEffect(()=>{
         getDocument();
     },[documentId]);
+
+    useEffect(()=>{
+        getProcessedText();
+    },[document]);
     return (
         <div className="p-5 relative">
             {!isLoading ?
