@@ -1,5 +1,6 @@
 'use client'
 import DocumentSidebar from "@/components/document/sidebar";
+import Editor from "@/components/editor";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Download } from "lucide-react";
 import { useParams } from "next/navigation";
@@ -50,7 +51,7 @@ const DocumentView = () => {
         <div className="p-5 relative">
             {!isLoading ?
             <div>
-                <div className="fixed top-0 left-0 p-4 md:px-7 flex items-center justify-between bg-white w-full">
+                <div className="fixed top-0 left-0 p-4 md:px-7 flex items-center justify-between bg-white w-full z-50">
                     <div className="flex items-center gap-3">
                         <DocumentSidebar />
                         <div className="w-full h-full bg-blue-600 rounded-sm py-2 px-5">
@@ -62,11 +63,11 @@ const DocumentView = () => {
                     </div>
                 </div>
                 <div className="flex my-14">
-                    <div className='hidden xl:block min-h-screen xl:border-r-2 xl:border-black w-1/2 overflow-scroll mt-7 px-3'>
-                        {!document ? <div>No documents</div>: <div className='word-document-content font-thin' dangerouslySetInnerHTML={{__html:document.content}} />}
+                    <div className='word-document-content hidden xl:block min-h-screen xl:border-r-2 xl:border-black w-1/2 overflow-scroll mt-7 px-3'>
+                        {document?.content && <Editor content={document.content} /> }
                     </div>
-                    <div className='min-h-screen overflow-scroll mt-7 px-3 xl:pl-10'>
-                        <div>TODO: Processed Document</div>
+                    <div className='word-document-content min-h-screen w-full xl:w-1/2 overflow-scroll mt-7 px-3 xl:pl-10'>
+                        {document?.content && <Editor editable content={document?.content} />}
                     </div>
                 </div>
 
