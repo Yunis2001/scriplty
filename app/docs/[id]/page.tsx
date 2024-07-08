@@ -44,12 +44,24 @@ const DocumentView = () => {
         
     }
 
-    const getProcessedText = ()=> {
+    const getProcessedText = async()=> {
         if(!document?.rawText){
-            console.log("No document");
+            return;
         }
-        else {
-            processText(document?.rawText)
+
+        try {
+            const result = await fetch('/api/process-text',{
+                method: "POST",
+                headers:{
+                    'Content-Type': 'application/json',
+                },
+                body:JSON.stringify({text:document.rawText})
+            })
+            const data = await result.json()
+            console.log(data);
+
+        } catch (error) {
+            console.log(error);
         }
     }
 
