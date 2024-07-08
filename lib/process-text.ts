@@ -1,7 +1,6 @@
 import {retext} from 'retext';
 import retextEnglish from 'retext-english';
 import retextSyntaxUrls from 'retext-syntax-urls';
-import retextSpell from 'retext-spell';
 import retextRepeatedWords from 'retext-repeated-words';
 import retextIndefiniteArticle from 'retext-indefinite-article';
 import retextSentenceSpacing from 'retext-sentence-spacing';
