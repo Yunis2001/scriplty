@@ -3,7 +3,7 @@
 import { Home,Menu} from "lucide-react";
 import { Sheet, SheetClose, SheetContent,SheetTrigger } from "../ui/sheet";
 import Link from "next/link";
-import LogoutButton from "../logout-button";
+import LogoutButton from "../auth/logout-button";
 
 
 const MobileNav = () => {

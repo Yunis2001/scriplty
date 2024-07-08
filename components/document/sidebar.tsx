@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Separator } from '../ui/separator'
 import { logOut } from '@/app/actions/Logout'
-import LogoutButton from '../logout-button'
+import LogoutButton from '../auth/logout-button'
 
 const DocumentSidebar = () => {
     const links = [
