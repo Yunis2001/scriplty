@@ -18,7 +18,7 @@ const DocumentView = () => {
     const [document,setDocument] = useState<CustomDocProps | null>(null);
     const [isLoading, setLoading] = useState(true);
     const [suggestions, setSuggestions] = useState([])
-    const documentId = params.id[0];
+    const documentId = params.id;
 
     const getDocument = async()=> {
         try {
@@ -89,10 +89,10 @@ const DocumentView = () => {
                 </div>
                 <div className="flex my-14">
                     <div className='word-document-content hidden xl:block min-h-screen xl:border-r-2 xl:border-black w-1/2 overflow-scroll mt-7 px-3'>
-                        {document?.content && <Editor content={document.content} /> }
+                        {document?.content && <Editor content={document.rawText} /> }
                     </div>
                     <div className='word-document-content min-h-screen w-full xl:w-1/2 overflow-scroll mt-7 px-3 xl:pl-10'>
-                        {document?.content && <Editor editable content={document?.content} />}
+                        {document?.content && <Editor suggestions={suggestions} editable content={document?.rawText} />}
                     </div>
                 </div>
 
