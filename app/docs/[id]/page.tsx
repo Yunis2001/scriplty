@@ -17,6 +17,7 @@ const DocumentView = () => {
     const params = useParams();
     const [document,setDocument] = useState<CustomDocProps | null>(null);
     const [isLoading, setLoading] = useState(true);
+    const [suggestions, setSuggestions] = useState([])
     const documentId = params.id[0];
 
     const getDocument = async()=> {
@@ -43,22 +44,22 @@ const DocumentView = () => {
         
     }
 
-    const getProcessedText = async()=> {
-        if(!document?.rawText){
+    const processDocument = async () => {
+        if(!document){
             return;
         }
-
+        const rawText = document.rawText;
         try {
             const result = await fetch('/api/process-text',{
-                method: "POST",
-                headers:{
+                method:'POST',
+                headers: {
                     'Content-Type': 'application/json',
                 },
-                body:JSON.stringify({text:document.rawText})
+                body:JSON.stringify(rawText),
             })
-            const data = await result.json()
-            console.log(data);
-
+    
+            const data = await result.json();
+            setSuggestions(data.result);
         } catch (error) {
             console.log(error);
         }
@@ -68,8 +69,8 @@ const DocumentView = () => {
         getDocument();
     },[documentId]);
 
-    useEffect(()=>{
-        getProcessedText();
+    useEffect(()=>{        
+        processDocument()
     },[document]);
     return (
         <div className="p-5 relative">
