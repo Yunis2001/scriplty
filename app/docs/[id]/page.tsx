@@ -17,6 +17,7 @@ const DocumentView = () => {
     const params = useParams();
     const [document,setDocument] = useState<CustomDocProps | null>(null);
     const [isLoading, setLoading] = useState(true);
+    const [suggestions, setSuggestions] = useState([])
     const documentId = params.id[0];
 
     const getDocument = async()=> {
@@ -28,7 +29,6 @@ const DocumentView = () => {
             if(response.ok){
                 setDocument(data.document);
             }
-            console.log(data);
         } catch (error) {
             console.log(error);
         }
@@ -44,9 +44,34 @@ const DocumentView = () => {
         
     }
 
+    const processDocument = async () => {
+        if(!document){
+            return;
+        }
+        const rawText = document.rawText;
+        try {
+            const result = await fetch('/api/process-text',{
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body:JSON.stringify(rawText),
+            })
+    
+            const data = await result.json();
+            setSuggestions(data.result);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(()=>{
         getDocument();
     },[documentId]);
+
+    useEffect(()=>{        
+        processDocument()
+    },[document]);
     return (
         <div className="p-5 relative">
             {!isLoading ?
