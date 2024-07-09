@@ -20,7 +20,7 @@ export async function GET(){
             return NextResponse.json({message:"User not found",status:401})
         }
 
-        const documents = await db.originalDocument.findMany({
+        const documents = await db.document.findMany({
             where: {
                 user_id:user.id,
             },

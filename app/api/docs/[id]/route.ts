@@ -9,7 +9,7 @@ export async function GET(request:Request,{ params }: { params: { id: string } }
             return NextResponse.json({message:"Invalid request",status:404})
         }
     
-        const document = await db.originalDocument.findUnique({
+        const document = await db.document.findUnique({
             where:{
                 document_id:Number(id),
             }
