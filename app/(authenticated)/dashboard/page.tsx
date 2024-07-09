@@ -72,9 +72,7 @@ const DashBoard = () => {
                             <Link href={`/docs/${doc.document_id}`}>
                                 <header className="w-full">
                                     <h1 className="font-bold uppercase mb-3 text-sm">{doc.title.substring(0, doc.title.lastIndexOf('.'))}</h1>
-                                    <p className="text-sm sm:text-xs overflow-hidden h-[150px]">
-                                        {doc.rawText.length > 600 ? doc.rawText.substring(0, 250) : doc.rawText.substring(0, 100)}
-                                    </p>
+                                    <p className="text-sm sm:text-sm overflow-hidden h-[150px]" dangerouslySetInnerHTML={{__html:doc.content.substring(0,200)}}/>
                                 </header>
                             </Link>
                             <footer className="w-full flex justify-center shadow-2xl py-2 rounded-md border-2 outline-none mt-5 gap-2">
