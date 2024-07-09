@@ -2,7 +2,7 @@
 
 import { logOut } from "@/app/actions/Logout"
 import { LogOut } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 interface LogoutButtonProps {
     className?: string;

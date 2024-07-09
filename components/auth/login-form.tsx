@@ -34,7 +34,7 @@ const LoginForm = () => {
         startTransition(()=> {
             login(values).then((data)=> {
                 if(data?.error){
-                    setError(data?.error);
+                    setError('Invalid credentials');
                 }
             });
         })
