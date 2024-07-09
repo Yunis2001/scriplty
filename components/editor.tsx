@@ -5,7 +5,7 @@ import StarterKit from '@tiptap/starter-kit'
 
 interface EditorProps {
     content:string
-    editable?:boolean | true,
+    editable?:boolean,
 }
 
 const Editor = ({content,editable=false}:EditorProps) => {
