@@ -24,7 +24,7 @@ model User {
   emailVerified DateTime?
 
   accounts Account[]
-  originalDocument OriginalDocument[]
+  originalDocument Document[]
 }
 
 
@@ -49,12 +49,12 @@ model Account {
   @@id([provider, providerAccountId])
 }
 
-model OriginalDocument {
+model Document {
   document_id        Int      @id @default(autoincrement())
   user_id            Int
   title              String
   content            String
-  rawText            String
+  processedText      String
   upload_date        DateTime @default(now())
   last_modified      DateTime @default(now())
 
