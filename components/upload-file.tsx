@@ -65,10 +65,10 @@ const UploadFile = ({onUploadSuccess}:UploadFileProps) => {
         <div>
             {file && <p>{file.name}</p>}
         </div>
-        <Button className="flex items-center shadow-xl mt-auto justify-center w-full" variant='outline' onClick={onSubmit}>
+        <Button disabled={isUploading} className={`flex items-center shadow-xl mt-auto justify-center w-full ${isUploading ? 'animate-pulse':''}`} variant='outline' onClick={onSubmit}>
             {!isUploading ?
                 <span className="flex gap-2">Upload Document&nbsp;<Upload className="w-4 h-4" /></span> :
-                <span className="w-full flex justify-center">Uploading&nbsp;<RotateCw className="w-5 h-5 animate-spin"/></span>
+                <span className="w-full flex justify-center">Processing&nbsp;<RotateCw className="w-5 h-5 animate-spin"/></span>
             }
         </Button>
     </form>
