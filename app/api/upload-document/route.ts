@@ -3,6 +3,9 @@ import mammoth from 'mammoth';
 import { db } from "@/lib/prisma";
 import { auth } from "@/auth";
 import TurndownService from "turndown";
+import { OpenAI } from 'openai';
+
+const openai = new OpenAI({apiKey: process.env.OPEN_AI_KEY})
 
 export async function POST(req:Request){
     const session = await auth();
@@ -48,12 +51,14 @@ export async function POST(req:Request){
         const turnDownService  = new TurndownService();
         const markdown = turnDownService.turndown(textContent);
 
-        const uploadedDocument = await db.originalDocument.create({
+        const rewrittenMarkdown = await rewriteWithOpenAI(markdown);
+
+        const uploadedDocument = await db.document.create({
             data: {
                 title:file.name,
-                content:textContent,
+                content:markdown,
                 user_id:user?.id,
-                rawText:markdown,              
+                processedText:rewrittenMarkdown,              
             }
         })
 
@@ -63,3 +68,23 @@ export async function POST(req:Request){
         return NextResponse.json({ message: "Error processing document" ,status: 500});
     }
 }
+
+
+async function rewriteWithOpenAI(markdown: string): Promise<string> {
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4",
+      messages: [
+        {
+          role: "system",
+          content: "You are a helpful assistant that rewrites content while preserving markdown structure. Rewrite the given text to be more engaging and clear do not summarize it or anything just rewrite it fixing grammar and spell checks, but keep all headings, links, and formatting intact."
+        },
+        {
+          role: "user",
+          content: markdown
+        }
+      ],
+      max_tokens: 2000,  // Adjust based on your needs and OpenAI's limits
+    });
+  
+    return completion.choices[0].message.content || markdown;
+  }
