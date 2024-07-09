@@ -27,6 +27,5 @@ export const processText = async(text:string) => {
         suggestion:message.expected ? message.expected[0] : null,
         message:message.reason,
     }))
-
-    console.log(suggestions);
+    return suggestions;
 }
