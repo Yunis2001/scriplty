@@ -9,7 +9,7 @@ export async function DELETE(req:Request) {
             return NextResponse.json({message: 'Document not found',status: 404})
         }
 
-        await db.originalDocument.delete({
+        await db.document.delete({
             where: {
                 document_id:documentId,
             }
