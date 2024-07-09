@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import mammoth from 'mammoth';
 import { db } from "@/lib/prisma";
 import { auth } from "@/auth";
+import TurndownService from "turndown";
 
 export async function POST(req:Request){
     const session = await auth();
@@ -40,17 +41,19 @@ export async function POST(req:Request){
             })
         };  
 
-        const rawTextConversion = await mammoth.extractRawText({buffer});
-        const rawTextResult = rawTextConversion.value;
+
         const result = await mammoth.convertToHtml({buffer},options);
         const textContent = result.value;
+
+        const turnDownService  = new TurndownService();
+        const markdown = turnDownService.turndown(textContent);
 
         const uploadedDocument = await db.originalDocument.create({
             data: {
                 title:file.name,
                 content:textContent,
                 user_id:user?.id,
-                rawText:rawTextResult,              
+                rawText:markdown,              
             }
         })
 
