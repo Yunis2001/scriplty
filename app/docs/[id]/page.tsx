@@ -10,7 +10,7 @@ export interface CustomDocProps {
     title: string;
     content: string;
     document_id: number;
-    rawText:string;
+    processedText:string;
 }
 
 const DocumentView = () => {
@@ -39,7 +39,7 @@ const DocumentView = () => {
     }
 
     const getDocumentCount = ()=> {
-        const wordCount = document?.rawText.trim().split(/\s+/).length
+        const wordCount = document?.processedText.trim().split(/\s+/).length
         return wordCount;
         
     }
@@ -48,7 +48,7 @@ const DocumentView = () => {
         if(!document){
             return;
         }
-        const rawText = document.rawText;
+        const rawText = document.processedText;
         try {
             const result = await fetch('/api/process-text',{
                 method:'POST',
@@ -92,7 +92,7 @@ const DocumentView = () => {
                         {document?.content && <Editor content={document.content} /> }
                     </div>
                     <div className='word-document-content min-h-screen w-full xl:w-1/2 overflow-scroll mt-7 px-3 xl:pl-10'>
-                        {document?.content && <Editor suggestions={suggestions} editable content={document?.content} />}
+                        {document?.content && <Editor suggestions={suggestions} editable content={document?.processedText} />}
                     </div>
                 </div>
 
