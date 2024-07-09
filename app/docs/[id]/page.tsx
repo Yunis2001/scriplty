@@ -28,7 +28,6 @@ const DocumentView = () => {
             if(response.ok){
                 setDocument(data.document);
             }
-            console.log(data);
         } catch (error) {
             console.log(error);
         }
