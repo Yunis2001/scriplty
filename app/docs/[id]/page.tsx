@@ -1,7 +1,6 @@
 'use client'
 import DocumentSidebar from "@/components/document/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { processText } from "@/lib/process-text";
 import { Download } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
