@@ -7,6 +7,7 @@ import { useCallback, useState } from 'react'
 import { Extension } from '@tiptap/core'
 import { Plugin, PluginKey } from 'prosemirror-state'
 import { Decoration, DecorationSet } from 'prosemirror-view'
+import SuggestionsComponent from './document/suggestions-component'
 
 interface EditorProps {
   content: string
@@ -19,6 +20,7 @@ interface Suggestion {
     start: { line: number; column: number; offset: number };
     end: { line: number; column: number; offset: number };
   };
+  [key: string]: any;
   message: string;
   original: string;
   suggestion: string;
@@ -83,18 +85,9 @@ const Editor = ({content, editable = false, suggestions = []}: EditorProps) => {
   }, [editor])
 
   return (
-    <div>
+    <div className='relative flex gap-5'>
       <EditorContent editor={editor} />
-      <div style={{ flex: 1 }}>
-        <h3>Suggestions:</h3>
-        <ul>
-          {suggestions?.map((suggestion, index) => (
-            <button key={index} onClick={() => highlightSuggestion(suggestion)}>
-              {suggestion.message}
-            </button>
-          ))}
-        </ul>
-      </div>
+      <SuggestionsComponent suggestions={suggestions} hightlightSuggestion={highlightSuggestion} />
     </div>
   )
 }
