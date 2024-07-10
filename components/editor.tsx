@@ -101,7 +101,7 @@ const Editor = ({content, editable = false, suggestions = [],documentId}: Editor
     content: content,
     editable: editable,
     onUpdate({editor}) {
-      setEditorContent(editor.getHTML());
+      setEditorContent(editor.storage.markdown.getMarkdown());
     }
   })
 
