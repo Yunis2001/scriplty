@@ -7,8 +7,12 @@ import Link from 'next/link'
 import { Separator } from '../ui/separator'
 import { logOut } from '@/app/actions/Logout'
 import LogoutButton from '../auth/logout-button'
+import DownloadButton from './download-button'
 
-const DocumentSidebar = () => {
+interface documentSideBarProps {
+    documentId:number
+}
+const DocumentSidebar = ({documentId}:documentSideBarProps) => {
     const links = [
         {
             title: 'Close', 
@@ -68,7 +72,9 @@ const DocumentSidebar = () => {
                 <SheetClose>
                     <div className='flex items-center gap-3'>
                         <Download className='h-7 w-7 stroke-[1px]' />
-                        <Button variant='link' className='text-2xl font-light'>Download</Button>
+                        <DownloadButton document_id={documentId}>
+                            <Button variant='link' className='text-2xl font-light'>Download</Button>    
+                        </DownloadButton>
                     </div>
                 </SheetClose>
             </div>
