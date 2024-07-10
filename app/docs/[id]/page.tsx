@@ -1,6 +1,8 @@
 'use client'
+import DownloadButton from "@/components/document/download-button";
 import DocumentSidebar from "@/components/document/sidebar";
 import Editor from "@/components/editor";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Download } from "lucide-react";
 import { useParams } from "next/navigation";
@@ -71,21 +73,23 @@ const DocumentView = () => {
 
     useEffect(()=>{        
         processDocument()
-    },[document]);
+    },[document?.processedText]);
     return (
         <div className="p-5 relative">
             {!isLoading ?
             <div>
                 <div className="fixed top-0 left-0 p-4 md:px-7 flex items-center justify-between bg-white w-full z-50">
                     <div className="flex items-center gap-3">
-                        <DocumentSidebar />
+                        <DocumentSidebar documentId={Number(documentId)} />
                         <div className="w-full h-full bg-blue-600 rounded-sm py-2 px-5">
                             <p className="text-white">{document?.title.substring(0,document.title.lastIndexOf('.'))}</p>
                         </div>
                     </div>
-                    <div className="bg-blue-600 rounded-md p-2">
-                        <Download className="stroke-white w-6 h-6" />
-                    </div>
+                    <DownloadButton document_id={Number(documentId)}>
+                        <Button className="bg-blue-600 rounded-md p-2">
+                            <Download className="stroke-white w-6 h-6" />
+                        </Button>
+                    </DownloadButton>
                 </div>
                 <div className="flex my-14">
                     <div className='word-document-content hidden xl:block min-h-screen xl:border-r-2 xl:border-black w-1/2 overflow-scroll mt-7 px-3'>
