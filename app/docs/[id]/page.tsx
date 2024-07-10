@@ -91,7 +91,7 @@ const DocumentView = () => {
                     <div className='word-document-content hidden xl:block min-h-screen xl:border-r-2 xl:border-black w-1/2 overflow-scroll mt-7 px-3'>
                         {document?.content && <Editor content={document.content} /> }
                     </div>
-                    <div className='word-document-content min-h-screen w-full xl:w-1/2 overflow-scroll mt-7 px-3 xl:pl-10'>
+                    <div className='word-document-content min-h-screen w-full xl:w-3/4 overflow-scroll mt-7 px-3 xl:pl-10'>
                         {document?.content && <Editor suggestions={suggestions} editable content={document?.processedText} />}
                     </div>
                 </div>
