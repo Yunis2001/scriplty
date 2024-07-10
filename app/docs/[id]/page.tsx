@@ -92,7 +92,7 @@ const DocumentView = () => {
                         {document?.content && <Editor content={document.content} /> }
                     </div>
                     <div className='word-document-content min-h-screen w-full xl:w-3/4 overflow-scroll mt-7 px-3 xl:pl-10'>
-                        {document?.content && <Editor suggestions={suggestions} editable content={document?.processedText} />}
+                        {document?.content && <Editor suggestions={suggestions} documentId={document.document_id} editable content={document?.processedText} />}
                     </div>
                 </div>
 
