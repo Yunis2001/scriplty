@@ -8,11 +8,14 @@ import { Extension } from '@tiptap/core'
 import { Plugin, PluginKey } from 'prosemirror-state'
 import { Decoration, DecorationSet } from 'prosemirror-view'
 import SuggestionsComponent from './document/suggestions-component'
+import { Button } from './ui/button'
+import { toast } from 'sonner'
 
 interface EditorProps {
   content: string
   editable?: boolean
   suggestions?: Suggestion[]
+  documentId?:number
 }
 
 interface Suggestion {
@@ -62,8 +65,32 @@ const HighlightPlugin = Extension.create({
   },
 })
 
-const Editor = ({content, editable = false, suggestions = []}: EditorProps) => {
+const Editor = ({content, editable = false, suggestions = [],documentId}: EditorProps) => {
   const [highlightedParagraph, setHighlightedParagraph] = useState<number | null>(null)
+  const [editorContent , setEditorContent] = useState("")
+
+  const updateContent = async()=> {
+    try {
+      const response = await fetch('/api/update-content',{
+        method:'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({document_id:documentId,content:editorContent}),
+      })
+
+      const data = await response.json();
+      if(response.ok){
+        toast.success(data.message);
+      }
+      else {
+        toast.error(data.message);
+      }
+      console.log(data);
+    } catch (error) {
+      
+    }
+  }
 
   const editor = useEditor({
     extensions: [
@@ -72,7 +99,10 @@ const Editor = ({content, editable = false, suggestions = []}: EditorProps) => {
       HighlightPlugin.configure({ highlightedParagraph }),
     ],
     content: content,
-    editable: editable
+    editable: editable,
+    onUpdate({editor}) {
+      setEditorContent(editor.getHTML());
+    }
   })
 
   const highlightSuggestion = useCallback((suggestion: Suggestion) => {
@@ -85,9 +115,14 @@ const Editor = ({content, editable = false, suggestions = []}: EditorProps) => {
   }, [editor])
 
   return (
-    <div className='relative flex gap-5'>
-      <EditorContent editor={editor} />
-      <SuggestionsComponent suggestions={suggestions} hightlightSuggestion={highlightSuggestion} />
+    <div className='relative'>
+      <div className='flex gap-5'>
+        <EditorContent editor={editor} />
+        <SuggestionsComponent suggestions={suggestions} hightlightSuggestion={highlightSuggestion} />   
+      </div>
+      {documentId &&
+        <Button className='bg-blue-500' onClick={updateContent}>Save Document</Button>
+      }
     </div>
   )
 }
