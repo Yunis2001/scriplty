@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import Markdown from 'react-markdown'
+import DownloadButton from "@/components/document/download-button";
 
 const DashBoard = () => {
     const [documents, setDocuments] = useState<Array<{ document_id: number; title: string,content:string,rawText:string}>>([]);
@@ -83,10 +84,11 @@ const DashBoard = () => {
                                     }}>
                                     <Trash className="w-4 h-4" />
                                 </Button>
-
-                                <Button variant='outline'>
-                                    <Download className="w-4 h-4" />
-                                </Button>
+                                <DownloadButton document_id={doc.document_id}>
+                                    <Button variant='outline'>
+                                        <Download className="w-4 h-4" />
+                                    </Button>
+                                </DownloadButton>
                             </footer>
                         </article>
                     ))   
