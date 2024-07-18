@@ -18,7 +18,7 @@ const RegisterFormSchema = z.object({
     })
 })
 
-export default async function POST(req:NextRequest){
+export async function POST(req:NextRequest){
     try {
         const body = await req.json();
         const validatedFields = RegisterFormSchema.parse(body);
