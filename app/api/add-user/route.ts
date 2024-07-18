@@ -1,5 +1,5 @@
 import { db } from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import {hash} from 'bcryptjs'
 
 import * as z from "zod";
@@ -18,9 +18,9 @@ const RegisterFormSchema = z.object({
     })
 })
 
-export default async function handle(req:NextApiRequest){
+export default async function POST(req:NextRequest){
     try {
-        const body = await req.body();
+        const body = await req.json();
         const validatedFields = RegisterFormSchema.parse(body);
 
         const {name,email,password} = validatedFields;
