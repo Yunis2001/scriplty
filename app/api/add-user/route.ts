@@ -2,25 +2,25 @@ import { db } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import {hash} from 'bcryptjs'
 
-import * as z from "zod";
+// import * as z from "zod";
 
 
-const RegisterFormSchema = z.object({
-    email:z.string().email({
-        message:'Please enter a valid email address'
-    }),
-    password:z.string().min(6,{
-        message:'Please enter a valid password'
-    }),
-    name:z.string().min(1,{
-        message:"Name is required!"
-    })
-})
+// const RegisterFormSchema = z.object({
+//     email:z.string().email({
+//         message:'Please enter a valid email address'
+//     }),
+//     password:z.string().min(6,{
+//         message:'Please enter a valid password'
+//     }),
+//     name:z.string().min(1,{
+//         message:"Name is required!"
+//     })
+// })
 
 export async function POST(req:Request){
     try {
         const body = await req.json();
-        const validatedFields = RegisterFormSchema.parse(body);
+        const validatedFields = body;
 
         const {name,email,password} = validatedFields;
 
@@ -50,11 +50,11 @@ export async function POST(req:Request){
        return NextResponse.json({user:rest, message: "User created successfully"},{ status:201}); 
 
     } catch (error) {
-        if(error instanceof z.ZodError){
-            const errorMessages = error.errors.map((err) => err.message);
-            console.log(errorMessages);
-            return NextResponse.json({ message: errorMessages},{status: 400});
-        }
+        // if(error instanceof z.ZodError){
+        //     const errorMessages = error.errors.map((err) => err.message);
+        //     console.log(errorMessages);
+        //     return NextResponse.json({ message: errorMessages},{status: 400});
+        // }
         console.log(error);
         return NextResponse.json({message: "Something went wrong!"},{status:500})
     }
