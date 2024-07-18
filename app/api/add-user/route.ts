@@ -5,7 +5,7 @@ import {hash} from 'bcrypt'
 import * as z from "zod";
 
 
-export const RegisterFormSchema = z.object({
+const RegisterFormSchema = z.object({
     email:z.string().email({
         message:'Please enter a valid email address'
     }),
