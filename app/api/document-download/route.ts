@@ -1,6 +1,7 @@
 import { db } from '@/lib/prisma';
 import { NextResponse } from 'next/server';
-import htmlToDocx from 'html-to-docx-typescript';
+// @ts-ignore
+import htmlToDocx from 'html-to-docx';
 import showdown from 'showdown';
 
 export async function POST(req:Request) {
