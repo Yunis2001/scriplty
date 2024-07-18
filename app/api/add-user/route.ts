@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import {hash} from 'bcryptjs'
 
 import * as z from "zod";
+import { NextApiRequest } from "next";
 
 
 const RegisterFormSchema = z.object({
@@ -17,9 +18,9 @@ const RegisterFormSchema = z.object({
     })
 })
 
-export async function handle(req:Request){
+export default async function handle(req:NextApiRequest){
     try {
-        const body = await req.json();
+        const body = await req.body();
         const validatedFields = RegisterFormSchema.parse(body);
 
         const {name,email,password} = validatedFields;
