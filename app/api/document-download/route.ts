@@ -1,7 +1,7 @@
 import { db } from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 // @ts-ignore
-import htmlToDocx from 'html-to-docx';
+import htmlToDocx from 'html-to-docx-typescript';
 import showdown from 'showdown';
 
 export async function POST(req:Request) {
@@ -26,11 +26,7 @@ export async function POST(req:Request) {
 
         const processedHTMLText = converter.makeHtml(document.processedText);
 
-        const buffer = await htmlToDocx(processedHTMLText,'',{
-            table: { row: { cantSplit: true } },
-            footer: true,
-            pageNumber: true,
-        },'');
+        const buffer = await htmlToDocx(processedHTMLText,'',{margins:0},'');
 
         const response = new Response(buffer);
 
