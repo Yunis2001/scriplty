@@ -8,13 +8,16 @@ interface LayoutProps {
 }
 
 const DashboardLayout = async({children}:LayoutProps) => {
-    const session = await auth();
+    const user = await auth();
     return (
-        <SessionProvider session={session}>
+        <SessionProvider session={user}>
             <div className="h-full pr-3 lg:pr-10 flex justify-between">
                 <Sidebar />
                 <div className="w-full ml-5 overflow-scroll">
                     <DashboardHeader />
+                    <div className="text-2xl font-bold">
+                        Welcome Back <span>{user?.user?.name}</span>
+                    </div>
                     {children}
                 </div>
             </div>
