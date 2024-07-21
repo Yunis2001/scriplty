@@ -71,13 +71,13 @@ const DashBoard = () => {
                 documents ? (
                     documents.map((doc, id) => (
                         <article key={id} className="w-[300px] sm:w-[200px] bg-white flex flex-col shadow-xl rounded-md border-2 outline-none py-5 px-3">
-                            <Link href={`/docs/${doc.document_id}`}>
+                            <Link href={`/docs/${doc.document_id}`} className="mb-3">
                                 <header className="w-full">
                                     <h1 className="font-bold uppercase mb-3 text-sm">{doc.title.substring(0, doc.title.lastIndexOf('.'))}</h1>
-                                    <Markdown className="text-sm sm:text-sm overflow-hidden h-[150px]">{doc.content.substring(0,180)}</Markdown>
+                                    <Markdown className="text-sm sm:text-sm overflow-hidden h-[100px]">{doc.content.substring(0,180)}</Markdown>
                                 </header>
                             </Link>
-                            <footer className="w-full flex justify-center shadow-2xl py-2 rounded-md border-2 outline-none mt-5 gap-2">
+                            <footer className="w-full flex justify-center shadow-2xl py-2 rounded-md border-2 outline-none mt-auto gap-2">
                                 <Button variant='outline' onClick={()=> {
                                     deleteDocument(`${doc.document_id}`)
                                     setTimeout(getDocuments,1000)
