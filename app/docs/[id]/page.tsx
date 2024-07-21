@@ -5,6 +5,7 @@ import Editor from "@/components/editor";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Download } from "lucide-react";
+import { Metadata } from "next";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -76,6 +77,7 @@ const DocumentView = () => {
     },[document?.processedText]);
     return (
         <div className="p-5 relative">
+            <title>{document?.title.substring(0, document.title.lastIndexOf('.'))}</title>
             {!isLoading ?
             <div>
                 <div className="fixed top-0 left-0 p-4 md:px-7 flex items-center justify-between bg-white w-full z-50">
